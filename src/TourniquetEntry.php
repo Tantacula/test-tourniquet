@@ -29,23 +29,15 @@ class TourniquetEntry implements TourniquetEntryContract
     private $hw;
 
     /**
-     * @var UserAccountRepositoryContract
-     */
-    private $accountRepository;
-
-    /**
      * TourniquetEntry constructor.
      *
      * @param TourniquetConfigurationManagerContract $config
      * @param TourniquetHardwareApiContract          $hw
-     * @param UserAccountRepositoryContract          $accountRepository
      */
     public function __construct(
         TourniquetConfigurationManagerContract $config,
-        TourniquetHardwareApiContract $hw,
-        UserAccountRepositoryContract $accountRepository
+        TourniquetHardwareApiContract $hw
     ) {
-        $this->accountRepository = $accountRepository;
         $this->config = $config;
         $this->hw = $hw;
     }
@@ -98,18 +90,5 @@ class TourniquetEntry implements TourniquetEntryContract
         }
 
         return $entryConfig->cost;
-    }
-
-    public function getCostForAccount($accountId): int
-    {
-        $account = $this->accountRepository->getById($accountId);
-        if ($account->canActivateTourniquetForFree()) {
-            return 0;
-        }
-        if (!$this->getPassCost()) {
-            return 0;
-        }
-
-        return $this->getPassCost();
     }
 }

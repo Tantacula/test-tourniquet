@@ -11,16 +11,28 @@ trait TourniquetUserAccountTrait
 
     public function deductEntryCostFromBalance(TourniquetEntryContract $entry): bool
     {
-        if($this->canActivateTourniquetForFree()) {
+        if ($this->canActivateTourniquetForFree()) {
             return true;
         }
 
-        $cost = $entry->getCostForAccount($this->getAccountId());
+        $cost = $this->getTourniquetEntryCostForAccount($entry);
         if ($cost > 0) {
             $this->deductFromBalance($cost);
         }
 
         return true;
+    }
+
+    private function getTourniquetEntryCostForAccount(TourniquetEntryContract $entry): int
+    {
+        if ($this->canActivateTourniquetForFree()) {
+            return 0;
+        }
+        if (!$entry->getPassCost()) {
+            return 0;
+        }
+
+        return $entry->getPassCost();
     }
 
     public function canActivateTourniquetForFree(): bool

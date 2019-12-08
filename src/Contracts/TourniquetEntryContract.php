@@ -7,15 +7,15 @@ interface TourniquetEntryContract
 {
     public function setEntryId(string $entryId);
 
-    public function getEntryId();
+    public function getEntryId(): ?string;
 
     public function openEntry();
 
     public function closeEntry();
 
-    public function isOpened();
+    public function isOpened(): bool;
 
-    public function isClosed();
+    public function isClosed(): bool;
 
-    public function getCostForAccount($accountId);
+    public function getPassCost(): int;
 }

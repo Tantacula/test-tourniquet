@@ -18,8 +18,7 @@ return [
     TourniquetEntryContract::class                => create(TourniquetEntry::class)
         ->constructor(
             get(TourniquetConfigurationManagerContract::class),
-            get(TourniquetHardwareApiContract::class),
-            get(UserAccountRepositoryContract::class)
+            get(TourniquetHardwareApiContract::class)
         ),
     UserAccountRepositoryContract::class          => create(UserAccountRepository::class),
     TourniquetUserAccountContract::class          => create(UserAccount::class),
